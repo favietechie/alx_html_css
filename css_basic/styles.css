@@ -1,46 +1,83 @@
-/* --- Existing flex layout (you should already have this) --- */
+/* ===== Desktop layout (Flexbox) ===== */
+* { box-sizing: border-box; }
+
 body {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* header, main, footer stacked */
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.4;
 }
 
+header, footer {
+  padding: 1rem;
+  background: #f2f2f2;
+}
+
+/* main contains article + aside */
 main {
   display: flex;
   flex-direction: row;
   flex: auto;
+  gap: 1rem;
+  padding: 1rem;
+  min-height: 60vh;
 }
 
-article { flex: 2; overflow-y: auto; }
-aside   { flex: 1; overflow-y: auto; }
-
-/* --- Mobile override: stack article & aside vertically on small screens --- */
-/* Option A: universally (works even if base.css lacks mobile rules) */
-@media (max-width: 700px) {
-  main {
-    flex-direction: column; /* stack vertically */
-  }
-  article, aside {
-    flex: none;     /* cancel the 2/1 split */
-    width: 100%;    /* take full width */
-  }
-  img {
-    max-width: 100%;
-    height: auto;   /* responsive images */
-  }
+article {
+  flex: 2;             /* 2/3 of width */
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 6px;
 }
 
-/* Option B: same as A but only applied when the body class is present */
+aside {
+  flex: 1;             /* 1/3 of width */
+  overflow-y: auto;
+  padding: 0.5rem;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+/* make images naturally responsive always */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* table small tidy */
+table { border-collapse: collapse; width: 100%; }
+thead td { font-weight: 700; }
+td { padding: 0.4rem; border: 1px solid #bbb; }
+
+/* ===== Mobile behavior (only when body has the class) ===== */
 @media (max-width: 700px) {
   body.works_on_smartphone main {
-    flex-direction: column;
+    flex-direction: column;  /* stack article & aside vertically */
   }
+
   body.works_on_smartphone article,
   body.works_on_smartphone aside {
     width: 100%;
-    flex: none;
+    flex: none;              /* cancel 2/1 split */
   }
-  body.works_on_smartphone img {
-    max-width: 100%;
-    height: auto;
+
+  /* make nav easier to tap on mobile */
+  body.works_on_smartphone nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0.5rem 0;
+    list-style: none;
+  }
+
+  /* comfortable tappable sizes */
+  body.works_on_smartphone a, 
+  body.works_on_smartphone button {
+    padding: 10px 12px;
+    font-size: 16px;
   }
 }
