@@ -1,0 +1,46 @@
+/* --- Existing flex layout (you should already have this) --- */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex: auto;
+}
+
+article { flex: 2; overflow-y: auto; }
+aside   { flex: 1; overflow-y: auto; }
+
+/* --- Mobile override: stack article & aside vertically on small screens --- */
+/* Option A: universally (works even if base.css lacks mobile rules) */
+@media (max-width: 700px) {
+  main {
+    flex-direction: column; /* stack vertically */
+  }
+  article, aside {
+    flex: none;     /* cancel the 2/1 split */
+    width: 100%;    /* take full width */
+  }
+  img {
+    max-width: 100%;
+    height: auto;   /* responsive images */
+  }
+}
+
+/* Option B: same as A but only applied when the body class is present */
+@media (max-width: 700px) {
+  body.works_on_smartphone main {
+    flex-direction: column;
+  }
+  body.works_on_smartphone article,
+  body.works_on_smartphone aside {
+    width: 100%;
+    flex: none;
+  }
+  body.works_on_smartphone img {
+    max-width: 100%;
+    height: auto;
+  }
+}

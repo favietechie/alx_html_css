@@ -1,0 +1,24 @@
+/* Body: stack header, main, and footer */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main: put article + aside side by side */
+main {
+  display: flex;
+  flex-direction: row;
+  flex: auto; /* let it resize automatically */
+}
+
+/* Article takes 2/3 of space */
+article {
+  flex: 2;
+  overflow-y: auto; /* add scroll if needed */
+}
+
+/* Aside takes 1/3 of space */
+aside {
+  flex: 1;
+  overflow-y: auto; /* add scroll if needed */
+}
